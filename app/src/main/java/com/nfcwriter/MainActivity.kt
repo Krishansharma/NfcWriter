@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         readFromIntent(intent)
         var pendingFlags: Int= PendingIntent.FLAG_UPDATE_CURRENT
          if (android.os.Build.VERSION.SDK_INT >= 23) {
-             pendingFlags=   PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+             pendingFlags=   PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
         }
         pendingIntent = PendingIntent.getActivity(
             this,
