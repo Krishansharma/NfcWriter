@@ -8,11 +8,11 @@ import android.nfc.tech.Ndef
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.nfcwriter.databinding.ActivityMainBinding
 import java.io.IOException
 import java.io.UnsupportedEncodingException
@@ -52,11 +52,15 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
         //For when the activity is launched by the intent-filter for android.nfc.action.NDEF_DISCOVERE
         readFromIntent(intent)
+        var pendingFlags: Int= PendingIntent.FLAG_UPDATE_CURRENT
+         if (android.os.Build.VERSION.SDK_INT >= 23) {
+             pendingFlags=   PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        }
         pendingIntent = PendingIntent.getActivity(
             this,
             0,
             Intent(this, javaClass).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
-            0
+            pendingFlags
         )
         val tagDetected = IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED)
         tagDetected.addCategory(Intent.CATEGORY_DEFAULT)
